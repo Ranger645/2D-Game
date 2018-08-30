@@ -1,9 +1,11 @@
 package runtime;
 
+import java.awt.Point;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import map.Map;
+import player.Player;
 import rendering.Renderer;
 import rendering.Window;
 
@@ -14,6 +16,7 @@ public class Runtime {
 	public Logger logger;
 	private Window window = null;
 	private Map map = null;
+	private Player client_player;
 	
 	private static final int FPS = 100;
 	
@@ -23,6 +26,10 @@ public class Runtime {
 	public Runtime() {
 		logger = Logger.getLogger(Runtime.class.getName());
 		window = new Window("2D Game");
+		client_player = new Player(0, 0);
+		window.addMouseMotionListener(client_player);
+		window.addKeyListener(client_player);
+		window.addMouseListener(client_player);
 		map = new Map("");
 	}
 	
@@ -50,7 +57,8 @@ public class Runtime {
 		long start = System.currentTimeMillis();
 		
 		// Priming the map components to draw:
-		Renderer.render_scene_middle_point(window, map, 0, 0);
+		client_player.update();
+		Renderer.render_scene_middle_point(window, map, client_player);
 		// Updating the graphics:
 		window.repaint();
 		

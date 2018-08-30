@@ -26,7 +26,7 @@ public class Map {
 	}
 	
 	public Tile getTile(int x, int y) {
-		if (x < 0 || y < 0 || x > this.getWidth() || y > this.getHeight())
+		if (x < 0 || y < 0 || x >= this.getWidth() || y >= this.getHeight())
 			return null;
 		return tiles[x][y];
 	}

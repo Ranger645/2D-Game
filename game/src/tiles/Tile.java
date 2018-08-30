@@ -21,7 +21,10 @@ public class Tile {
 		tile_texture = new BufferedImage(Tile.TILE_SIZE, Tile.TILE_SIZE, BufferedImage.TYPE_INT_RGB);
 		for (int i = 0; i < tile_texture.getWidth(); i++)
 			for (int n = 0; n < tile_texture.getHeight(); n++)
-				tile_texture.setRGB(i, n, ((i * 5) << 16) | ((n * 5) << 8));
+				if (i == 0 || n == 0 || i == Tile.TILE_SIZE - 1 || n == Tile.TILE_SIZE - 1)
+					tile_texture.setRGB(i, n, 0);
+				else
+					tile_texture.setRGB(i, n, 0xFFFFFFFF);
 	}
 	
 	public BufferedImage get_image() {
